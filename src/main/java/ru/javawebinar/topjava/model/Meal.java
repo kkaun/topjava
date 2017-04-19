@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,9 +15,9 @@ import java.time.LocalTime;
  */
 
 @NamedQueries({
-        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id"),
-        @NamedQuery(name = Meal.BY_DATE, query = "SELECT m FROM Meal m WHERE m.user_id=:userId AND m.date_time BETWEEN :startDate AND :endDate"),
-        @NamedQuery(name = Meal.GET_BETWEEN_DATES, query = "SELECT m FROM Meal WHERE m.user_id=:userId ORDER BY m.date_time"),
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = Meal.GET_BETWEEN_DATES, query = "SELECT m FROM Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate"),
+        @NamedQuery(name = Meal.GET_ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime"),
 })
 
 @Entity
@@ -25,11 +26,11 @@ import java.time.LocalTime;
 public class Meal extends BaseEntity {
 
     public static final String DELETE = "Meal.delete";
-    public static final String BY_DATE = "Meal.getByDateUser";
-    public static final String GET_BETWEEN_DATES = "Meal.getAllSorted";
+    public static final String GET_ALL_SORTED = "Meal.getAllSorted";
+    public static final String GET_BETWEEN_DATES = "Meal.getBetweenDates";
 
+    @NotNull
     @Column(name = "date_time", nullable = false)
-    @NotBlank
     private LocalDateTime dateTime;
 
     @Column
@@ -37,11 +38,10 @@ public class Meal extends BaseEntity {
     private String description;
 
     @Column
-    @NotBlank
     @Range(min = 10, max = 5000)
     private int calories;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
