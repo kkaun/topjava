@@ -19,6 +19,7 @@ public abstract class DbTest {
 
     @Before
     public void setUp() throws Exception{
+
         userService.evictCache();
     }
 
