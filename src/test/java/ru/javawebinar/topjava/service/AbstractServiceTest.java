@@ -1,8 +1,6 @@
 package ru.javawebinar.topjava.service;
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Rule;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
@@ -10,6 +8,8 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -33,6 +33,8 @@ abstract public class AbstractServiceTest {
 
     private static StringBuilder results = new StringBuilder();
 
+
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -51,6 +53,8 @@ abstract public class AbstractServiceTest {
         // needed only for java.util.logging (postgres driver)
         SLF4JBridgeHandler.install();
     }
+
+
 
     @AfterClass
     public static void printResult() {
@@ -82,4 +86,22 @@ abstract public class AbstractServiceTest {
         }
         return result;
     }
+
+
+    public static boolean isProfileJDBC(Environment environment) {
+
+        boolean isjdbc = false;
+
+        String[] activeProfiles = environment.getActiveProfiles();
+        for (String profile : activeProfiles) {
+            System.out.println("GOT PROFILE: " + profile);
+            if(profile.equals("jdbc")){
+                isjdbc = true;
+            }
+        }
+
+        return isjdbc;
+    }
+
+
 }
