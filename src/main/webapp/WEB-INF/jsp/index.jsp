@@ -8,12 +8,13 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
     <form method="post" action="users">
-        <spring:message code="app.login"/>: <select name="userId">
-    <option value="100000" selected>User</option>
-    <option value="100001">Admin</option>
-</select>
+        <spring:message code="app.login"/>:
+        <select name="userId">
+            <option value="100000" selected>User</option>
+            <option value="100001">Admin</option>
+        </select>
         <button type="submit"><spring:message code="common.select"/></button>
-</form>
+    </form>
 <ul>
     <li><a href="users"><spring:message code="users.title"/></a></li>
     <li><a href="meals"><spring:message code="meals.title"/></a></li>
