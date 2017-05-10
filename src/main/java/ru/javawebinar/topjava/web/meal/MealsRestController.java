@@ -79,7 +79,7 @@ public class MealsRestController {
 
 
     @RequestMapping(value = "/add/process", method = RequestMethod.POST)
-    public ModelAndView addingMeal(@ModelAttribute Meal meal){
+    public ModelAndView addingMeal(@ModelAttribute Meal meal) throws Exception {
         int userId = AuthorizedUser.id();
         checkNew(meal);
         LOG.info("create {} for User {}", meal, userId);
@@ -101,7 +101,7 @@ public class MealsRestController {
 
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-    public ModelAndView editingMeal(@ModelAttribute("meal") Meal meal, @PathVariable("id") int id){
+    public ModelAndView editingMeal(@ModelAttribute("meal") Meal meal, @PathVariable("id") int id) throws Exception {
         ModelAndView modelAndView = new ModelAndView("redirect:/meals/list");
         int userId = AuthorizedUser.id();
         LOG.info("update {} for User {}", meal, userId);

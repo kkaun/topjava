@@ -4,6 +4,7 @@ import org.junit.Assume;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
@@ -17,6 +18,7 @@ import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
+//@Transactional
 public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Autowired
@@ -41,6 +43,14 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
     public void testSave() throws Exception {
         Meal created = getCreated();
         service.save(created, USER_ID);
+//        Meal fake = getFake();
+//        service.save(fake, USER_ID);
+//        service.save(fake, USER_ID);
+//        service.save(fake, USER_ID);
+//        service.save(fake, USER_ID);
+//        service.save(fake, USER_ID);
+//        service.save(fake, USER_ID);
+//        service.save(fake, USER_ID);
         MATCHER.assertCollectionEquals(Arrays.asList(created, MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1), service.getAll(USER_ID));
     }
 
