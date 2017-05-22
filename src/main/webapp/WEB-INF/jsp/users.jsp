@@ -20,7 +20,7 @@
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </a>
 
-                <table class="table table-striped display" id="datatable">
+                <table class="table table-striped display" id="usersDatatable">
                     <thead>
                     <tr>
                         <th><spring:message code="users.name"/></th>

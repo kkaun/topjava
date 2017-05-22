@@ -1,26 +1,28 @@
-var ajaxUrl = 'ajax/admin/users/';
+/**
+ * Created by Кира on 22.05.2017.
+ */
+
+var ajaxUrl = "/ajax/meals";
 var datatableApi;
 
-// $(document).ready(function () {
-$(function () {
-    datatableApi = $('#usersDatatable').DataTable({
+$(function(){
+    datatableApi = $("#mealsDatatable").DataTable({
+
         "paging": false,
         "info": true,
-        "columns": [
+        "columns":[
+
             {
-                "data": "name"
+                "data": "description"
             },
             {
-                "data": "email"
+                "data": "datetime"
             },
             {
-                "data": "roles"
+                "data": "calories"
             },
             {
-                "data": "enabled"
-            },
-            {
-                "data": "registered"
+                "data": "exceeded"
             },
             {
                 "defaultContent": "Edit",
@@ -31,12 +33,14 @@ $(function () {
                 "orderable": false
             }
         ],
-        "order": [
+        "order":
             [
-                0,
-                "asc"
+                0, "asc"
             ]
-        ]
-    });
+        }
+    );
+
     makeEditable();
-});
+
+    }
+);

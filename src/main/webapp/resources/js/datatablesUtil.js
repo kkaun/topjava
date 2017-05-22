@@ -1,3 +1,5 @@
+
+
 function makeEditable() {
     $('.delete').click(function () {
         deleteRow($(this).attr("id"));
