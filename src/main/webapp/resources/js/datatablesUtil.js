@@ -7,12 +7,22 @@ function formatDate(date) {
 }
 
 
+function updateTableByData(data) {
+    datatableApi.clear().rows.add(data).draw();
+}
+
+
 function makeEditable() {
     $('.delete').click(function () {
         deleteRow($(this).attr("id"));
     });
 
     $('#detailsForm').submit(function () {
+        save();
+        return false;
+    });
+
+    $('#filterForm').submit(function () {
         save();
         return false;
     });
@@ -38,15 +48,32 @@ function deleteRow(id) {
     });
 }
 
+
+
+function clearFilter() {
+    $("#filter")[0].reset();
+    $.get(ajaxUrl, updateTableByData);
+}
+
 function updateTable() {
-    $.get(ajaxUrl, function (data) {
-        datatableApi.clear();
-        $.each(data, function (key, item) {
-            datatableApi.row.add(item);
-        });
-        datatableApi.draw();
+    $.ajax({
+        type: "POST",
+        url: ajaxUrl + "filter",
+        data: $("#filter").serialize(),
+        success: updateTableByData
     });
 }
+
+
+// function updateTable() {
+//     $.get(ajaxUrl, function (data) {
+//         datatableApi.clear();
+//         $.each(data, function (key, item) {
+//             datatableApi.row.add(item);
+//         });
+//         datatableApi.draw();
+//     });
+// }
 
 function save() {
     var form = $('#detailsForm');
@@ -105,44 +132,3 @@ function failNoty(event, jqXHR, options, jsExc) {
 //     });
 // }
 
-
-//
-// function renderEditBtn(data, type, row) {
-//     if (type == 'display') {
-//         return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ');">' +
-//             '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-//     }
-// }
-//
-// function renderDeleteBtn(data, type, row) {
-//     if (type == 'display') {
-//         return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ');">'+
-//             '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
-//     }
-// }
-//
-//
-//
-//
-// function updateTableByData(data) {
-//     datatableApi.clear().rows.add(data).draw();
-// }
-//
-// // https://api.jquery.com/jquery.extend/#jQuery-extend-deep-target-object1-objectN
-// function extendsOpts(opts) {
-//     $.extend(true, opts,
-//         {
-//             "ajax": {
-//                 "url": ajaxUrl,
-//                 "dataSrc": ""
-//             },
-//             "paging": false,
-//             "info": true,
-//             // "language": {
-//             //     "search": i18n["common.search"]
-//             // },
-//             "initComplete": makeEditable
-//         }
-//     );
-//     return opts;
-// }

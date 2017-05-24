@@ -18,10 +18,6 @@ import java.util.List;
 public class MealRestController extends AbstractMealController {
     static final String REST_URL = "/rest/profile/meals";
 
-    public MealRestController(MealService service) {
-        super(service);
-    }
-
     @Override
     @GetMapping("/{id}")
     public Meal get(@PathVariable("id") int id) {

@@ -8,7 +8,9 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.to.MealWithExceed;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -19,10 +21,10 @@ import java.util.List;
 @RequestMapping("/ajax/profile/meals")
 public class MealAjaxController extends AbstractMealController {
 
-    @Autowired
-    public MealAjaxController(MealService service) {
-        super(service);
-    }
+//    @Autowired
+//    public MealAjaxController(MealService service) {
+//        super(service);
+//    }
 
     @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,6 +50,16 @@ public class MealAjaxController extends AbstractMealController {
         } else {
             super.update(meal, id);
         }
+    }
+
+
+    @PostMapping("/filter")
+    public List<MealWithExceed> getBetween(@RequestParam(value = "startDate", required = false) LocalDate startDate,
+                                           @RequestParam(value = "startTime", required = false) LocalTime startTime,
+                                           @RequestParam(value = "endDate", required = false) LocalDate endDate,
+                                           @RequestParam(value = "endTime", required = false) LocalTime endTime){
+
+        return super.getBetween(startDate, startTime, endDate, endTime);
     }
 
 
