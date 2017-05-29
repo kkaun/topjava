@@ -3,9 +3,14 @@ package ru.javawebinar.topjava.web.meal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.to.MealTo;
 import ru.javawebinar.topjava.to.MealWithExceed;
 import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
@@ -48,9 +53,14 @@ public abstract class AbstractMealController {
         return service.save(meal, userId);
     }
 
-    public void update(Meal meal, int id) {
+    public void update(MealTo mealTo) {
         int userId = AuthorizedUser.id();
-        checkIdConsistent(meal, id);
+        LOG.info("update {} for User {}", mealTo, userId);
+        service.update(mealTo, userId);
+    }
+
+    public void update(Meal meal, int id){
+        int userId = AuthorizedUser.id();
         LOG.info("update {} for User {}", meal, userId);
         service.update(meal, userId);
     }

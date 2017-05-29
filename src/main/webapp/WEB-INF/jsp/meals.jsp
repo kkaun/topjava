@@ -63,10 +63,14 @@
                 </div>
                     </div>
                 </div>
+
+
                 <a class="btn btn-primary" onclick="add()">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <spring:message code="common.add"/>
                 </a>
+
+
                 <table class="table table-striped display" id="datatable">
                     <thead>
                     <tr>
@@ -152,4 +156,15 @@
     </div>
 </div>
 </body>
+
+<script type="text/javascript">
+    var i18n = [];
+    i18n["addTitle"] = '<spring:message code="meals.add"/>';
+    i18n["editTitle"] = '<spring:message code="meals.edit"/>';
+
+    <c:forEach var='key' items='<%=new String[]{"common.deleted","common.saved","common.enabled","common.disabled","common.errorStatus"}%>'>
+    i18n['${key}'] = '<spring:message code="${key}"/>';
+    </c:forEach>
+</script>
+
 </html>

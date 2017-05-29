@@ -87,6 +87,7 @@
     </div>
 </div>
 </body>
+
 <script type="text/javascript">
     var i18n = [];
     i18n["addTitle"] = '<spring:message code="users.add"/>';
