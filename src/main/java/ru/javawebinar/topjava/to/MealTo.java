@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.to;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,7 +19,7 @@ public class MealTo implements Serializable{
     @NotNull
     private LocalDateTime dateTime;
 
-    @NotNull
+    @NotBlank
     private String description;
 
     @NotNull
