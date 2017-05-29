@@ -1,11 +1,8 @@
 package ru.javawebinar.topjava.to;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
