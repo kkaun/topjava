@@ -94,3 +94,8 @@ function renderDeleteBtn(data, type, row) {
             '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
     }
 }
+
+
+function formatDate(date) {
+    return date.replace('T', ' ').substr(0, 16);
+}
