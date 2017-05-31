@@ -15,8 +15,8 @@ public class MealTo implements Serializable{
 
     private Integer id;
 
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME)
     @NotNull
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dateTime;
 
     @NotBlank
