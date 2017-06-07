@@ -50,12 +50,10 @@ public class AdminAjaxController extends AbstractUserController {
     }
 
     @PostMapping
-    public void createOrUpdate(@Valid UserTo userTo, BindingResult result, HttpServletRequest request) {
+    public void createOrUpdate(@Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
-            // TODO change to exception handler
-            //return ValidationUtil.getErrorResponse(result);
-            ExceptionInfoHandler handler = new ExceptionInfoHandler();
-            handler.handleError(request, new ValidationException(result));
+
+            throw new ValidationException(result);
         }
         if (userTo.isNew()) {
             super.create(UserUtil.createNewFromTo(userTo));

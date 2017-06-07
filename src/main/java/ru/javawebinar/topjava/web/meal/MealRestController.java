@@ -9,6 +9,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealWithExceed;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -47,7 +48,7 @@ public class MealRestController extends AbstractMealController {
     public ResponseEntity<Meal> createWithLocation(@Valid @RequestBody Meal meal, BindingResult result) {
 
         if(result.hasErrors()){
-
+            throw new ValidationException();
         }
 
         Meal created = super.create(meal);

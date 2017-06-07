@@ -38,9 +38,7 @@ public class AdminRestController extends AbstractUserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody @Valid User user, BindingResult result,
-                                                   HttpServletRequest request) {
-
+    public ResponseEntity<User> createWithLocation(@RequestBody @Valid User user, BindingResult result) {
         if(result.hasErrors()){
             throw new ValidationException(result);
         }
