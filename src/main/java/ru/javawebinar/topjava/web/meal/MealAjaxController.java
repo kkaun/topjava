@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.web.meal;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -55,10 +56,14 @@ public class MealAjaxController extends AbstractMealController {
 
             throw new ValidationException(result);
         }
-        if (meal.isNew()) {
-            super.create(meal);
-        } else {
-            super.update(meal, meal.getId());
+        try{
+            if (meal.isNew()) {
+                super.create(meal);
+            } else {
+                super.update(meal, meal.getId());
+            }
+        } catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("meals cannot have duplicate datetime");
         }
     }
 

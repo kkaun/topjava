@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.web.user;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,13 +54,17 @@ public class AdminAjaxController extends AbstractUserController {
     @PostMapping
     public void createOrUpdate(@Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
-
             throw new ValidationException(result);
         }
-        if (userTo.isNew()) {
-            super.create(UserUtil.createNewFromTo(userTo));
-        } else {
-            super.update(userTo, userTo.getId());
+
+        try {
+            if (userTo.isNew()) {
+                super.create(UserUtil.createNewFromTo(userTo));
+            } else {
+                super.update(userTo, userTo.getId());
+            }
+        } catch (DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("user with this email is already present in application");
         }
     }
 
